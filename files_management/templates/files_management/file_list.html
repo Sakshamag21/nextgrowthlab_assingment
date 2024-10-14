@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Uploaded Files</h2>
+    <ul>
+        {% for file in files %}
+            <li>{{ file.file.name }} (uploaded by {{ file.uploaded_by }}, points: {{ file.points_allotted }})</li>
+        {% endfor %}
+    </ul>
+
+    {% if user.is_authenticated and user.profile.bio == 'Manager' %}
+        <a class="btn btn-success" href="{% url 'upload_file' %}">Upload Another File</a>
+    {% endif %}
+{% endblock %}

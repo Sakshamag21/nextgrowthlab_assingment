@@ -1,0 +1,24 @@
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title %}
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome, {{user.first_name.title|default:'Guest'}}</h1>
+        <p class="lead">
+            This is <b>File system</b> built with Django that follows the model–template–views architectural pattern.
+        </p>
+        <hr class="my-4">
+        <p class="lead">
+            {% if user.is_authenticated %}
+                <a class="btn btn-primary btn-lg" href="{% url 'logout' %}" role="button">Logout</a>
+            {% else %}
+                <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Sign in</a>
+            {% endif %}
+        </p>
+
+        {% if user.is_authenticated and user.profile.bio == 'Manager' %}
+            <a class="btn btn-success btn-lg" href="{% url 'upload_file' %}" role="button" target="_blank">Upload File</a>
+        {% endif %}
+        <a class="btn btn-success btn-lg" href="{% url 'file_list' %}" role="button" target="_blank">File List</a>
+
+    </div>
+{% endblock content %}
